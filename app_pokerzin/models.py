@@ -28,7 +28,7 @@ class Game(Base):
 
 
 class Player(Base):
-    game = models.ManyToManyField(
+    join_game = models.ManyToManyField(
         Game,
         through = 'PlayerHasGame',
         through_fields = ("player", "game"))
