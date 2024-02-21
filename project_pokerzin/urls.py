@@ -16,12 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from app_pokerzin.views import PlayerAPIView
+from app_pokerzin.views import PlayerAPIView, GameAPIView, PlayerHasGameAPIView
 
 
 
 urlpatterns = [
-    path('api/v1/', PlayerAPIView.as_view(), name = 'players'),
+    path('api/v1/player', PlayerAPIView.as_view(), name = 'player'),
+    path('api/v1/game', GameAPIView.as_view(), name = 'game'),
+    path('api/v1/playerhasgame', PlayerHasGameAPIView.as_view(), name = 'playerhasgame'),
     
     path('admin/', admin.site.urls),
     path('auth/', include('rest_framework.urls')),

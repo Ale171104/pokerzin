@@ -21,3 +21,33 @@ class PlayerAPIView(APIView):
         serializer.is_valid(raise_exception = True)
         serializer.save()
         return Response(serializer.data, status = status.HTTP_201_CREATED) 
+
+
+class GameAPIView(APIView):
+    
+    def get(sefl, request):
+        game = Game.objects.all()
+        serializer = GameSerializer(game, many = True)
+        return Response(serializer.data)    
+    
+    
+    def post(sefl, request):
+        serializer = GameSerializer(data = request.data)
+        serializer.is_valid()
+        serializer.save()
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
+
+
+class PlayerHasGameAPIView(APIView):
+    
+    def get(self, request):
+        playerHasGame = PlayerHasGame.objects.all()
+        serializer = PlayerHasGameSerializer(playerHasGame, many = True)
+        return Response(serializer.data)
+    
+    
+    def post(self, request):
+        serializer = PlayerHasGameSerializer(data = request.data)
+        serializer.is_valid()
+        serializer.save()
+        return Response(serializer.data, status = status.HTTP_201_CREATED)    
