@@ -21,9 +21,12 @@ from app_pokerzin.views import PlayerAPIView, GameAPIView, PlayerHasGameAPIView
 
 
 urlpatterns = [
-    path('api/v1/player', PlayerAPIView.as_view(), name = 'player'),
-    path('api/v1/game', GameAPIView.as_view(), name = 'game'),
-    path('api/v1/playerhasgame', PlayerHasGameAPIView.as_view(), name = 'playerhasgame'),
+    path('api/v1/player/', PlayerAPIView.as_view(), name = 'player'),
+    path('player/<int:pk>/', PlayerAPIView.as_view(), name = 'player-detail'),
+    
+    path('api/v1/game/', GameAPIView.as_view(), name = 'game'),
+    
+    path('api/v1/playerhasgame/', PlayerHasGameAPIView.as_view(), name = 'playerhasgame'),
     
     path('admin/', admin.site.urls),
     path('auth/', include('rest_framework.urls')),

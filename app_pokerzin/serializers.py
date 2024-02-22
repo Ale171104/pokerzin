@@ -41,7 +41,7 @@ class PlayerHasGameSerializer(serializers.ModelSerializer):
 
 class PlayerSerializer(serializers.ModelSerializer):
     
-    join_game = PlayerHasGameSerializer(many = True)
+    
     
     class Meta:
         model = Player
@@ -59,7 +59,8 @@ class PlayerSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         join_game_data = validated_data.pop('join_game', None)
         player_instance = Player.objects.create(**validated_data)
-            
+        
+       
         
             
         return player_instance

@@ -22,6 +22,17 @@ class PlayerAPIView(APIView):
         serializer.save()
         return Response(serializer.data, status = status.HTTP_201_CREATED) 
 
+    
+    def delete(self, request, pk):
+        try:
+            player = Player.objects.get(pk = pk)
+        except Player.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+        
+            
+        player.delete()
+        return Response(status = status.HTTP_200_OK)
+
 
 class GameAPIView(APIView):
     
@@ -36,6 +47,7 @@ class GameAPIView(APIView):
         serializer.is_valid()
         serializer.save()
         return Response(serializer.data, status = status.HTTP_201_CREATED)
+
 
 
 class PlayerHasGameAPIView(APIView):
