@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from app_pokerzin.views import PlayerAPIView, PlayerPutDeleteAPIView, GameAPIView,GamePutDeleteAPIView , PlayerHasGameAPIView
+from app_pokerzin.views import PlayerAPIView, PlayerPutDeleteAPIView, GameAPIView,GamePutDeleteAPIView , PlayerHasGameAPIView, PlayerHasGamePutDeleteAPIView
 
 
 
@@ -28,6 +28,7 @@ urlpatterns = [
     path('api/v1/game/<int:pk>/', GamePutDeleteAPIView.as_view(), name = 'game_put_delete'),
     
     path('api/v1/playerhasgame/', PlayerHasGameAPIView.as_view(), name = 'playerhasgame'),
+    path('api/v1/playerhasgame/<int:pk>/', PlayerHasGamePutDeleteAPIView.as_view(), name = 'playerhasgame_put_delete'),
     
     path('admin/', admin.site.urls),
     path('auth/', include('rest_framework.urls')),
