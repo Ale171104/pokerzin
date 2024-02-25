@@ -19,6 +19,7 @@ class Game(Base):
     start_chips_minimum = models.IntegerField()
     start_chips_maximum = models.IntegerField()
     
+    
     class Meta:
         verbose_name = 'Game'
         
@@ -30,8 +31,8 @@ class Game(Base):
 class Player(Base):
     join_game = models.ManyToManyField(
         Game,
-        through = 'PlayerHasGame',
-        through_fields = ("player", "game"))
+        through = 'PlayerHasGame')
+        
           
     nickname = models.CharField(max_length = 60, unique = True)
     poker_chips = models.IntegerField()

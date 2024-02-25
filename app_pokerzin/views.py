@@ -22,6 +22,45 @@ class PlayerAPIView(APIView):
         serializer.save()
         return Response(serializer.data, status = status.HTTP_201_CREATED) 
 
+    
+   
+class PlayerPutDeleteAPIView(APIView):
+    
+    def get(self, request, pk):
+        try:        
+            player = Player.objects.get(pk = pk)
+            serializer = PlayerSerializer(player)
+            return Response(serializer.data)
+        except:
+            return Response(status = status.HTTP_400_BAD_REQUEST)
+         
+    
+    def put(self, request, pk):
+        try:        
+            player = Player.objects.get(pk = pk)
+            
+        except:
+            return Response(status = status.HTTP_400_BAD_REQUEST)
+        
+        serializer = PlayerSerializer(player, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_200_OK)
+        else:
+            return Response(status = status.HTTP_400_BAD_REQUEST)
+        
+        
+    def delete(self, request, pk):
+        try:
+            player = Player.objects.get(pk = pk)
+        except Player.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+        
+            
+        player.delete()
+        return Response(status = status.HTTP_200_OK)
+
+
 
 class GameAPIView(APIView):
     
@@ -33,9 +72,50 @@ class GameAPIView(APIView):
     
     def post(sefl, request):
         serializer = GameSerializer(data = request.data)
-        serializer.is_valid()
-        serializer.save()
-        return Response(serializer.data, status = status.HTTP_201_CREATED)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        else:
+            return Response(status = status.HTTP_400_BAD_REQUEST)
+
+
+
+class GamePutDeleteAPIView(APIView):
+    
+    def get(self, request, pk):
+        try:        
+            game = Game.objects.get(pk = pk)
+            serializer = GameSerializer(game)
+            return Response(serializer.data)
+        except:
+            return Response(status = status.HTTP_400_BAD_REQUEST)
+         
+    
+    def put(self, request, pk):
+        try:        
+            game = Game.objects.get(pk = pk)
+            
+        except:
+            return Response(status = status.HTTP_400_BAD_REQUEST)
+        
+        serializer = GameSerializer(game, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_200_OK)
+        else:
+            return Response(status = status.HTTP_400_BAD_REQUEST)
+        
+        
+    def delete(self, request, pk):
+        try:
+            game = Game.objects.get(pk = pk)
+        except Game.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+        
+            
+        game.delete()
+        return Response(status = status.HTTP_200_OK)
+
 
 
 class PlayerHasGameAPIView(APIView):
@@ -50,4 +130,41 @@ class PlayerHasGameAPIView(APIView):
         serializer = PlayerHasGameSerializer(data = request.data)
         serializer.is_valid()
         serializer.save()
-        return Response(serializer.data, status = status.HTTP_201_CREATED)    
+        return Response(serializer.data, status = status.HTTP_201_CREATED)  
+
+
+
+class PlayerHasGamePutDeleteAPIView(APIView):
+    
+    def get(self, request, pk):
+        try:
+            playerHasGame = PlayerHasGame.objects.get(pk = pk)
+            serializer = PlayerHasGameSerializer(playerHasGame)
+            return Response(serializer.data)
+        except:
+            return Response(status = status.HTTP_400_BAD_REQUEST)
+    
+    
+    def put(self, request, pk):
+        try:
+            playerHasGame = PlayerHasGame.objects.get(pk = pk)
+        except:
+            return Response(status = status.HTTP_400_BAD_REQUEST) 
+        
+        serializer = PlayerHasGameSerializer(playerHasGame, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_200_OK)
+        
+        else:
+            return Response(status = status.HTTP_400_BAD_REQUEST)
+    
+    
+    def delete(self, request, pk):
+        try:
+            playerHasGame = PlayerHasGame.objects.get(pk = pk)
+        except:
+            return Response(status = status.HTTP_400_BAD_REQUEST)  
+        
+        playerHasGame.delete()
+        return Response(status = status.HTTP_200_OK)          
